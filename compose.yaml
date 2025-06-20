@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:17.5
+    environment:
+      POSTGRES_DB: sapomie_api_development
+      POSTGRES_USER: sapomie_user
+      POSTGRES_PASSWORD: sapomie_password
+    volumes:
+      - sapomie-db-data:/var/lib/postgresql/data
+  api:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/sapomie-api
+      - sapomie-bundle-data:/sapomie-api/vendor/bundle
+volumes:
+  sapomie-db-data:
+  sapomie-bundle-data:
