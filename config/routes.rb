@@ -7,4 +7,19 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, except: :index do
+        resources :reviews, only: %i[index create destroy]
+      end
+      resources :players, only: %i[show] do
+        get 'reviews', on: :member
+      end
+      resources :leagues, only: %i[index] do
+        get 'clubs', on: :member
+      end
+    end
+  end
+
 end
