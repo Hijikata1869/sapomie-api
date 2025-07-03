@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, except: :index do
         get 'reviews', on: :member
-        
       end
       resources :players, only: %i[show] do
         resources :reviews, only: %i[index create destroy]
@@ -20,6 +19,7 @@ Rails.application.routes.draw do
       resources :leagues, only: %i[index] do
         get 'clubs', on: :member
       end
+      resources :clubs, only: %i[show]
     end
   end
 
