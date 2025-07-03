@@ -38,9 +38,18 @@ module Api
         end
       end
 
+      def reviews
+        user_reviews = Review.where(user_id: params[:id])
+        if user_reviews.present?
+          render json: { user_reviews: user_reviews }, status: 200
+        else
+          render json: {}, status: 404
+        end
+      end
+
       private
       def user_create_params
-        params.require(:user).permit(:nickname, :email, :password, :passwrod_confirmation)
+        params.require(:user).permit(:nickname, :email, :password, :password_confirmation)
       end
 
       def user_update_params
