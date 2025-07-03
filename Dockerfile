@@ -4,7 +4,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install
 RUN npm install -g yarn
 
 WORKDIR /sapomie-api
-COPY . /sapomie-api
+
+COPY Gemfile Gemfile.lock ./
+
 RUN bundle config set path 'vendor/bundle'
 RUN bundle install
+
+COPY . .
+
 CMD bash -c "rm -rf /sapomie-api/tmp/pids/server.pid && bundle exec rails server -b '0.0.0.0' -p 3001"
