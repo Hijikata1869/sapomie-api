@@ -3,7 +3,7 @@ module Api
     class PlayersController < ApplicationController
       
       def show
-        player = Player.find(params: [:id])
+        player = Player.find(params[:id])
         if player.present?
           render json: { player: player }, status: 200
         else
