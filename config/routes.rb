@@ -11,14 +11,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, except: :index do
-        resources :reviews, only: %i[index create destroy]
+        get 'reviews', on: :member
       end
       resources :players, only: %i[show] do
-        get 'reviews', on: :member
+        resources :reviews, only: %i[index create destroy]
       end
       resources :leagues, only: %i[index] do
         get 'clubs', on: :member
       end
+      resources :clubs, only: %i[show]
     end
   end
 
